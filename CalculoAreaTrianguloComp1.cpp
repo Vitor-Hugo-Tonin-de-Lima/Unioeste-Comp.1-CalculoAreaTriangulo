@@ -5,24 +5,44 @@
 int main(){
 	
 	int coordenadas[3][3];		//Matriz para armazenar os valores
-	double resultado;			//Variavel para armazenar o resultado da operaÁ„o
+	double resultado;		//Variavel para armazenar o resultado da opera√ß√£o
 	
-	//Loop para o usu·rio inserir o valor de cada ponto individualmente
+	//Loop para o usu√°rio inserir o valor de cada ponto individualmente
 	for(int i=0;i<3;i++){
 		printf("Digite as coordenadas do vertice %d: ",i+1);
-		scanf("%d%d",&coordenadas[1][i],&coordenadas[2][i]);
-		coordenadas[3][i] = 1;
+		scanf("%d%d", &coordenadas[0][i], &coordenadas[1][i]);
+		coordenadas[2][i] = 1;
+	}
+	
+	for(int i=0;i<3;i++){
+		for(int j=0;j<3;j++){
+			printf("%d ", coordenadas[i][j]);
+		}
+		printf("\n");
 	}
 	
 	//Calculo da determinante da matriz
-	resultado = (coordenadas[1][1] * coordenadas[2][2] + coordenadas[1][2] * coordenadas[2][3] + coordenadas[1][3] * coordenadas[2][1] - 
-				(coordenadas[1][3] * coordenadas[2][2] + coordenadas[1][2] * coordenadas[2][1] + coordenadas[1][1] * coordenadas[2][3]));
-				
-	//Calculo do restante da operaÁ„o
-	resultado = (abs(resultado))/2;
+	int diagonaisPrincipais = 0;
+	int diagonaisSecundarias = 0;
 	
-	//Impress„o do resultado
-	printf("A area do triangulo e de: %lf",resultado);
+	diagonaisPrincipais += coordenadas[0][0] * coordenadas[1][1];
+	diagonaisPrincipais += coordenadas[0][1] * coordenadas[1][2];
+	diagonaisPrincipais += coordenadas[0][2] * coordenadas[1][0];
+	
+	diagonaisSecundarias += coordenadas[0][2] * coordenadas[1][1];
+	diagonaisSecundarias += coordenadas[0][1] * coordenadas[1][0];
+	diagonaisSecundarias += coordenadas[0][0] * coordenadas[1][2];
+
+	resultado = diagonaisPrincipais - diagonaisSecundarias;
+	
+	//Calculo do restante da opera√ß√£o	
+	if(resultado < 0){
+		resultado = resultado * (-1);
+	}
+	resultado = resultado / 2;
+	
+	//Impress√£o do resultado
+	printf("A area do triangulo e de: %.2lf", resultado);
 	
 	return 0;
 }
